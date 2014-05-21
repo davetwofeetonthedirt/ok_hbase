@@ -221,21 +221,13 @@ module OkHbase
 
       def _scanner(opts)
         scanner = Apache::Hadoop::Hbase::Thrift::TScan.new()
-        scanner_fields = Apache::Hadoop::Hbase::Thrift::TScan::FIELDS
-
-        opts.each_pair do |k, v|
-          const = k.to_s.upcase.gsub('_', '')
-          const_value = Apache::Hadoop::Hbase::Thrift::TScan.const_get(const) rescue nil
-
-          if const_value
-            v.force_encoding(Encoding::UTF_8) if v.is_a?(String)
-            OkHbase.logger.info "setting scanner.#{scanner_fields[const_value][:name]}: #{v}"
-            scanner.send("#{scanner_fields[const_value][:name]}=", v)
-          else
-          end
-        end
+        scanner.startRow = opts[:start_row]
+        scanner.stopRow = opts[:stop_row]
+        scanner.timestamp = opts[:timestamp]
+        scanner.columns = opts[:columns]
+        scanner.caching = opts[:caching]
+        scanner.filterString = opts[:filter_string]
         scanner
-
       end
 
       def _make_row(cell_map, include_timestamp)

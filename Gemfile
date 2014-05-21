@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 # Specify your gem's dependencies in ok_hbase.gemspec
 gemspec
 
+gem 'rack'
+gem 'thin'
 
 group :development, :test do
   gem 'awesome_print'

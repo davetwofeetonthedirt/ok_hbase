@@ -11,13 +11,13 @@ module OkHbase
 
 
     DEFAULT_OPTS = {
-        host: 'localhost',
+        host: '127.0.0.1',
         port: 9090,
-        timeout: 5,
+        timeout: 1,
         auto_connect: false,
         table_prefix: nil,
         table_prefix_separator: '_',
-        transport: :buffered,
+        transport: :framed,
         max_tries: 3
     }.freeze
 
